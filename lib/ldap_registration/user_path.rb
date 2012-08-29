@@ -35,6 +35,7 @@ module LdapRegistration
       private 
 
         def validate_user_in_ldap
+          debugger
           ldap = Net::LDAP.new :host => Setting.plugin_ldap_registration["ldap_host"],
                                :port => Setting.plugin_ldap_registration["ldap_port"],
                                :auth => {
@@ -46,7 +47,7 @@ module LdapRegistration
           treebase = Setting.plugin_ldap_registration["ldap_treebase"]
           result = ldap.search(:base => treebase, :filter => filter)
           unless result.empty?
-            errors.add_on_blank(:login, "has already been taken")
+            errors.add(:login, "has already been taken")
           end
         end
   
