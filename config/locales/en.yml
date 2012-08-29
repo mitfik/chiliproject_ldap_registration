@@ -4,3 +4,5 @@ en:
   ldap_registration_ldap_port: LDAP port
   ldap_registration_ldap_bind_dn: LDAP bind dn (bind as)
   ldap_registration_ldap_pass: LDAP password
+  ldap_registration_ldap_treebase: Treebase
+  ldap_registration_ldap_filter: User filter
