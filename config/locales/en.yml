@@ -1,0 +1,6 @@
+en:
+  label_registration_via_ldap: Register user direct in ldap
+  ldap_registration_ldap_host: LDAP host
+  ldap_registration_ldap_port: LDAP port
+  ldap_registration_ldap_bind_dn: LDAP bind dn (bind as)
+  ldap_registration_ldap_pass: LDAP password

@@ -1,0 +1,30 @@
+<p>
+  <%= label_tag("settings[ldap_host]", l(:ldap_registration_ldap_host)) %>
+  <%= text_field_tag("settings[ldap_host]",
+                 Setting.plugin_ldap_registration["ldap_host"]) %>
+</p>
+<p>
+  <%= label_tag("settings[ldap_port]", l(:ldap_registration_ldap_port)) %>
+  <%= text_field_tag("settings[ldap_port]",
+                 Setting.plugin_ldap_registration["ldap_port"]) %>
+</p>
+<p>
+  <%= label_tag("settings[ldap_bind_dn]", l(:ldap_registration_ldap_bind_dn)) %>
+  <%= text_field_tag("settings[ldap_bind_dn]",
+                 Setting.plugin_ldap_registration["ldap_bind_dn"]) %>
+</p>
+<p>
+  <%= label_tag("settings[ldap_host]", l(:ldap_registration_ldap_pass)) %>
+  <%= password_field_tag("settings[ldap_pass]",
+                 Setting.plugin_ldap_registration["ldap_pass"]) %>
+</p>
+<p>
+  <%= label_tag("settings[ldap_treebase]", l(:ldap_registration_ldap_treebase)) %>
+  <%= text_field_tag("settings[ldap_treebase]",
+                 Setting.plugin_ldap_registration["ldap_treebase"]) %>
+</p>
+<p>
+  <%= label_tag("settings[ldap_filter]", l(:ldap_registration_ldap_filter)) %>
+  <%= text_field_tag("settings[ldap_filter]",
+                 Setting.plugin_ldap_registration["ldap_filter"]) %>
+</p>
