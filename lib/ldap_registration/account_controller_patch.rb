@@ -21,7 +21,6 @@ module LdapRegistration
       user = token.user
       redirect_to(home_url) && return unless user.registered?
       user.activate
-      user.create_in_ldap
       if user.save
         token.destroy
         flash[:notice] = l(:notice_account_activated)
@@ -53,7 +52,7 @@ module LdapRegistration
           @user.password, @user.password_confirmation = params[:password], params[:password_confirmation]
 
           case Setting.self_registration
-          # NOTICE we add registration via LDAP (4) as a standard registration with email activation after email verification user will added to ldap
+          # NOTICE we add registration via LDAP (4) as a standard registration with email activation after email verification user will be added to ldap
           when '1', '4' 
             register_by_email_activation(@user)
           when '3'

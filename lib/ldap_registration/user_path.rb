@@ -7,7 +7,10 @@ module LdapRegistration
 
       base.class_eval do
         unloadable # Mark as unloadable so it is reloaded in development
-        validate :validate_user_in_ldap, :on => :create
+        validate_on_create :validate_user_in_ldap
+
+        alias_method_chain :activate, :ldap
+        after_create :create_in_ldap
 
       end
     end
@@ -23,19 +26,36 @@ module LdapRegistration
                                   :password => Setting.plugin_ldap_registration["ldap_pass"]
                                 }
           user = { :cn => self.firstname, :sn => self.lastname, :userPassword => Net::LDAP::Password.generate(:sha, self.password),
-                   :objectClass => ["inetOrgPerson", "simpleSecurityObject"] }
+                   :objectClass => ["inetOrgPerson", "simpleSecurityObject"], :st => "disabled" }
           treebase = "uid=#{self.login},".concat(Setting.plugin_ldap_registration["ldap_treebase"])
           ldap.open do |ldap|
             ldap.add(:dn => treebase, :attributes => user)
           end
         rescue
+          #TODO log it >?
           errors.add_to_base("Internal server error, please inform administration")
         end
       end
+
+      def activate_with_ldap
+        ldap = Net::LDAP.new :host => Setting.plugin_ldap_registration["ldap_host"],
+                             :port => Setting.plugin_ldap_registration["ldap_port"],
+                             :auth => {
+                                :method => :simple,
+                                :username => Setting.plugin_ldap_registration["ldap_bind_dn"],
+                                :password => Setting.plugin_ldap_registration["ldap_pass"]
+                              }
+        result = ldap.replace_attribute "uid=#{login},".concat( Setting.plugin_ldap_registration["ldap_treebase"]), :st, "active"
+        unless result
+          errors.add(:status, "change fail")
+        else
+          activate_without_ldap
+        end
+      end
+
       private 
 
         def validate_user_in_ldap
-          debugger
           ldap = Net::LDAP.new :host => Setting.plugin_ldap_registration["ldap_host"],
                                :port => Setting.plugin_ldap_registration["ldap_port"],
                                :auth => {
