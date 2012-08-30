@@ -21,6 +21,9 @@ module LdapRegistration
       user = token.user
       redirect_to(home_url) && return unless user.registered?
       user.activate
+      if Setting.plugin_ldap_registration["ldap_default_user_group"]
+        user.groups << Group.find_by_id(Setting.plugin_ldap_registration["ldap_default_user_group"])
+      end
       if user.save
         token.destroy
         flash[:notice] = l(:notice_account_activated)

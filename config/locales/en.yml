@@ -6,3 +6,4 @@ en:
   ldap_registration_ldap_pass: LDAP password
   ldap_registration_ldap_treebase: Treebase
   ldap_registration_ldap_filter: User filter
+  ldap_registration_ldap_default_user_group: Default group for new users

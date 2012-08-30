@@ -28,3 +28,7 @@
   <%= text_field_tag("settings[ldap_filter]",
                  Setting.plugin_ldap_registration["ldap_filter"]) %>
 </p>
+<p>
+  <%= label_tag("settings[ldap_default_user_group]", l(:ldap_registration_ldap_default_user_group)) %>
+  <%= select_tag "settings[ldap_default_user_group]", options_from_collection_for_select(Group.all, :id, :lastname, Setting.plugin_ldap_registration["ldap_default_user_group"].to_i) %>
+</p>

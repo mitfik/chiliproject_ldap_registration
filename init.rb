@@ -19,7 +19,8 @@ Redmine::Plugin.register :ldap_registration do
                          :ldap_pass => nil,
                          :ldap_port => nil,
                          :ldap_treebase => nil,
-                         :ldap_filter => nil
+                         :ldap_filter => nil,
+                         :ldap_default_user_group => nil
                        }, 
            :partial => "shared/ldap_registration_settings"
 
